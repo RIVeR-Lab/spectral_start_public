@@ -1,0 +1,1 @@
+sudo ../../spectral_finger/spectra_wiz/scripts/stellarnet_demo.py

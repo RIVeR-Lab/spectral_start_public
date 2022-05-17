@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Start UR3e Controller -->
+    <include file="$(find spectral_finger_planner)/launch/ur3e.launch"/>
+    <!-- Bringup RVIZ with correct launch configuration -->
+    <node type="ur3e_planner.py" name="ur3_planner" pkg="spectral_finger_planner" output="screen"/>
+</launch>

@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Start Rail Controller -->
+    <node name="rail_control" pkg="robo_rail" type="RoboRailListener.py" output="screen"/>
+    <!-- Start HSI Visualizer -->
+    <!-- NOTE: CONTACT AUTHORS TO OBTAIN THIS PACKAGE -->
+    <!-- <node name="hsi_vis" pkg="headwall_ros" type="view_hsi.py" output="screen"/> -->
+    <!-- Start HSI Processor -->
+    <!-- NOTE: CONTACT AUTHORS TO OBTAIN THIS PACKAGE -->
+    <!-- <node name="hsi_prc" pkg="headwall_ros" type="hypercube_process.py" output="screen"/> -->
+    <!-- Launch Spectrometer Driver -->
+    <node name="spectrometer_driver" pkg="spectra_wiz" type="stellarnet_driver.py" output="screen"/>
+    <!-- Launch Spectrometer Visualizer -->
+    <node name="spectrometer_vis" pkg="collection_wrapper" type="collection_main.py" output="screen"/>
+    <!-- Launch Azure Kinetc ROS Driver -->
+    <include file="/home/river/cluttered_ws/src/azure_kinect_ros_driver/launch/driver.launch">
+        <arg name="depth_mode"                  value="WFOV_2X2BINNED" />
+        <arg name="overwrite_robot_description" value="false"/>
+        <arg name="color_enabled"               value="true" />   
+        <arg name="rgb_point_cloud"             value="false" />
+        <arg name="fps"                         value="15" />      
+    </include>
+    <!-- Bringup RVIZ with correct launch configuration -->
+    <node type="rviz" name="rviz" pkg="rviz" args="-d $(find spectral_manip)/rviz/arm_kinetc_meta.rviz" />
+    <node pkg="tf" type="static_transform_publisher" name="aprilcam_tf" args="-0.05 0.092 0.08 1.57 0 0 wrist_2_link camera_base 100"/>
+</launch>
